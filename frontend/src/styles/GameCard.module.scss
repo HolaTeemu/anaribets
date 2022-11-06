@@ -1,0 +1,105 @@
+.gameCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 100px;
+  p {
+    font-size: 2em;
+    font-weight: 500;
+    margin: 0 2.5%;
+  }
+  .goalAmount,
+  .betInput {
+    margin: 5%;
+  }
+}
+
+.gameCardContainer {
+  margin: 0 auto;
+  padding-bottom: 1em;
+  &:nth-of-type(even) {
+    background-color: #585858;
+  }
+}
+
+.betInput {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  position: relative;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 35px;
+  width: 35px;
+  transition: all 0.15s ease-out 0s;
+  background: #cbd1d8;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  outline: none;
+  z-index: 1000;
+}
+
+.betInput:disabled {
+  cursor: default;
+  &:hover {
+    background: #cbd1d8;
+  }
+  &:hover:checked {
+    background: #40e0d0;
+  }
+}
+
+.betInput:hover {
+  background: #9faab7;
+}
+.betInput:checked {
+  background: #40e0d0;
+}
+.betInput:checked::before {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  content: "X";
+  font-size: 25px;
+  font-weight: 100;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+}
+.betInput:checked::after {
+  -webkit-animation: click-wave 0.65s;
+  -moz-animation: click-wave 0.65s;
+  animation: click-wave 0.65s;
+  background: #40e0d0;
+  content: "";
+  display: block;
+  position: relative;
+  z-index: 100;
+}
+.betInput.radio {
+  border-radius: 50%;
+}
+.betInput.radio::after {
+  border-radius: 50%;
+}
+
+@keyframes click-wave {
+  0% {
+    height: 20px;
+    width: 20px;
+    opacity: 0.35;
+    position: relative;
+  }
+  100% {
+    height: 100px;
+    width: 100px;
+    margin-left: -30px;
+    margin-top: -30px;
+    opacity: 0;
+  }
+}
