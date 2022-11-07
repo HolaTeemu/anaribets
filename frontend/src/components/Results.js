@@ -29,8 +29,8 @@ const Results = () => {
       <h2>Viime yön tulokset</h2>
       {/* <h3>{startDate}</h3> */}
       {results.map((game) => {
-        if (game.status.state === "FINAL") {
-          const gameId = `${game.teams.away.abbreviation}${game.teams.home.abbreviation}${game.startTime.split("T")[0]}`;
+        if (game.status === "FINAL") {
+          const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
           return <GameCard game={game} key={gameId} />;
         }
       })}

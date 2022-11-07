@@ -38,9 +38,7 @@ const Ongoing = () => {
       <h2>Menossa olevat pelit</h2>
       <form onSubmit={handleFormSubmit}>
         {ongoingGames.map((game) => {
-          const gameId = `${game.teams.away.abbreviation}${
-            game.teams.home.abbreviation
-          }${game.startTime.split("T")[0]}`;
+          const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
           return (
             <GameCard
               game={game}

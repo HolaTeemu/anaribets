@@ -41,10 +41,8 @@ const Upcoming = () => {
       <h2>Tulevat pelit</h2>
       <form onSubmit={handleFormSubmit}>
         {upcomingGames.map((game) => {
-          if (game.status.state === "PREVIEW") {
-            const gameId = `${game.teams.away.abbreviation}${
-              game.teams.home.abbreviation
-            }${game.startTime.split("T")[0]}`;
+          if (game.status === "PREVIEW") {
+            const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
             return (
               <GameCard
                 game={game}

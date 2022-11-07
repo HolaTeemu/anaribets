@@ -5,7 +5,7 @@ const cors = require("cors");
 const gamesService = require("./services/gamesService");
 
 const Bet = require("./models/bets");
-const { response } = require("express");
+const { parseUpcomingGamesData, parseResultsData, parseOngoingGamesData } = require("./helpers/gamesHelpers");
 const app = express();
 
 app.use(cors());
@@ -27,7 +27,8 @@ app.get("/api/results", (req, res) => {
   gamesService
     .getResults()
     .then((response) => {
-      res.json(response.data.games);
+      const data = parseResultsData(response.data.games);
+      res.json(data);
     })
     .catch((error) =>
       console.log(`Error fetching the results - ${error.message}`)
@@ -39,7 +40,8 @@ app.get("/api/upcoming", (req, res) => {
   gamesService
     .getUpcomingGames(startDate)
     .then((response) => {
-      res.json(response.data[0].games);
+      const data = parseUpcomingGamesData(response.data[0].games);
+      res.json(data);
     })
     .catch((error) => {
       console.log(`Error fetching the upcoming games - ${error.message}`);
@@ -52,7 +54,8 @@ app.get("/api/ongoing", (req, res) => {
     .getUpcomingGames(startDate)
     .then((response) => {
       const liveGames = response.data[0].games.filter((game) => game.status.state === "LIVE");
-      res.json(liveGames);
+      const data = parseOngoingGamesData(liveGames);
+      res.json(data);
     })
     .catch((error) => {
       console.log(`Error fetching the ongoing games - ${error.message}`);

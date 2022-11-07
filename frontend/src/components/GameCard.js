@@ -12,8 +12,8 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
   const startTime = createFormattedDate(game.startTime);
 
   // Away and home abbreviation
-  const awayAbbr = game.teams.away.abbreviation;
-  const homeAbbr = game.teams.home.abbreviation;
+  const awayAbbr = game.awayAbbr;
+  const homeAbbr = game.homeAbbr;
 
   // Check if the bet has always been made for the game
   betsState.forEach((game) => {
@@ -25,7 +25,7 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
   return (
     <div className={classes.gameCardContainer}>
       {upcomingGame && <h3>{startTime}</h3>}
-      {ongoingGame && <h3>{game.status.progress.currentPeriodOrdinal} period</h3>}
+      {ongoingGame && <h3>{game.currentPeriod} period</h3>}
       <div className={classes.gameCard}>
         <TeamLogo team={awayAbbr} />
         {upcomingGame && (
@@ -38,9 +38,9 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
             defaultChecked={bet === awayAbbr ? true : false}
           />
         )}
-        {ongoingGame && <p>{game.scores[awayAbbr]}</p>}
-        {!upcomingGame && !ongoingGame && (
-          <p className={classes.goalAmount}>{game.scores[awayAbbr]}</p>
+        {/* {ongoingGame && <p>{game.scores[awayAbbr]}</p>} */}
+        {!upcomingGame && (
+          <p className={classes.goalAmount}>{game.awayGoals}</p>
         )}
         <p className={classes.teamAbbr}>{awayAbbr}</p>
         <p>-</p>
@@ -56,14 +56,14 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
             defaultChecked={bet === homeAbbr ? true : false}
           />
         )}
-        {ongoingGame && <p>{game.scores[homeAbbr]}</p>}
-        {!upcomingGame && !ongoingGame && (
-          <p className={classes.goalAmount}>{game.scores[homeAbbr]}</p>
+        {/* {ongoingGame && <p>{game.homeGoals}</p>} */}
+        {!upcomingGame && (
+          <p className={classes.goalAmount}>{game.homeGoals}</p>
         )}
         <TeamLogo team={homeAbbr} />
       </div>
       {ongoingGame && (
-        <h3>{game.status.progress.currentPeriodTimeRemaining.pretty}</h3>
+        <h3>{game.currentPeriodTimeLeft}</h3>
       )}
     </div>
   );
