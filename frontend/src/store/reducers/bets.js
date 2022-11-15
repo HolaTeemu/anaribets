@@ -15,7 +15,6 @@ const betsReducer = (state = initialState, action) => {
       state.betsMade.find((bet) => {
         return bet.game === action.gameId;
       });
-
     default:
       return state;
   }

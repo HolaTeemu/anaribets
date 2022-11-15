@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="ongoing" element={<Ongoing />} />
-        <Route path="upcoming" element={<Upcoming />} />
+        <Route path="upcoming" element={<Upcoming user="Teemu" />} />
         <Route path="results" element={<Results />} />
         <Route path="leaderboard" element={<Leaderboard />} />
         <Route path="*" element={<Navigate replace to="/upcoming" />} />

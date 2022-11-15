@@ -1,17 +1,21 @@
-// import axios from "axios";
+import axios from "axios";
 
-// const baseUrl = "https://nhl-score-api.herokuapp.com/api";
+const saveBets = (bets, username) => {
+  return axios.post(`/api/users/bets/${username.toLowerCase()}`, { bets });
+};
 
-// const setBets = () => {
-    
-// }
+const getBets = (username) => {
+  return axios.get(`/api/users/bets/${username.toLowerCase()}`);
+};
 
 // const getUpcomingGames = (startDate) => {
-//     return axios.get(`${baseUrl}/scores?startDate=${startDate}&endDate=${startDate}`);
-// }
+//   return axios.get(
+//     `${baseUrl}/scores?startDate=${startDate}&endDate=${startDate}`
+//   );
+// };
 
-// // eslint-disable-next-line import/no-anonymous-default-export
-// export default {
-//     getResults,
-//     getUpcomingGames
-// }
+// eslint-disable-next-line import/no-anonymous-default-export
+export default {
+  saveBets,
+  getBets,
+};

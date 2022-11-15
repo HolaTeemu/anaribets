@@ -7,8 +7,9 @@ import classes from "../styles/Upcoming.module.scss";
 
 import GameCard from "./GameCard";
 import { setBets } from "../store/actions/bets";
+import betsService from "../services/betsService";
 
-const Upcoming = () => {
+const Upcoming = (props) => {
   const dispatch = useDispatch();
   const upcomingGames = useSelector((state) => state.games.upcomingGames);
   const bets = useSelector((state) => state.bets.betsMade);
@@ -26,6 +27,12 @@ const Upcoming = () => {
       }
     }
     dispatch(setBets(betsMade));
+    betsService.saveBets(betsMade, props.user)
+    .then((res) => {
+      alert("Bets saved");
+      console.log("Bets saved");
+    })
+    .catch((error) => console.log(error.message));
   };
 
   useEffect(() => {
@@ -34,7 +41,14 @@ const Upcoming = () => {
         dispatch(setUpcomingGames(res.data));
       });
     }
-  }, [dispatch, startDate, upcomingGames.length]);
+    if (bets.length === 0) {
+      betsService.getBets(props.user)
+      .then((res) => {
+        dispatch(setBets(res.data));
+      })
+      .catch((error) => console.log(error.message));
+    }
+  }, [dispatch, startDate, upcomingGames.length, bets.length]);
 
   return (
     <div className={classes.upcomingPage}>
@@ -42,7 +56,9 @@ const Upcoming = () => {
       <form onSubmit={handleFormSubmit}>
         {upcomingGames.map((game) => {
           if (game.status === "PREVIEW") {
-            const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
+            const gameId = `${game.awayAbbr}${game.homeAbbr}${
+              game.startTime.split("T")[0]
+            }`;
             return (
               <GameCard
                 game={game}
@@ -53,8 +69,10 @@ const Upcoming = () => {
             );
           }
         })}
-        {bets.length === upcomingGames.length ? (
-          <p>Kaikki betsit tehty!</p>
+        {bets.length === upcomingGames.length && upcomingGames.length !== 0 ? (
+          <h3>Kaikki betsit tehty!</h3>
+        ) : upcomingGames.length === 0 ? (
+          <h3>No upcoming games!</h3>
         ) : (
           <button type="submit">Tallenna betsit</button>
         )}
