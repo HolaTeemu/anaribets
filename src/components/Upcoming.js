@@ -15,11 +15,13 @@ const Upcoming = (props) => {
   const bets = useSelector((state) => state.bets.betsMade);
   const startDate = new Date().toISOString().split("T")[0];
 
+  console.log(bets);
+
   const handleFormSubmit = (event) => {
     let betsMade = [];
     event.preventDefault();
     for (let i = 0; i < upcomingGames.length * 2; i++) {
-      if (event.target[i].checked) {
+      if (event.target[i].checked && !event.target[i].disabled) {
         betsMade = betsMade.concat({
           game: event.target[i].name,
           bet: event.target[i].value,

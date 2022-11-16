@@ -9,7 +9,7 @@ const betsReducer = (state = initialState, action) => {
     case SET_BETS:
       return {
         ...state,
-        betsMade: action.bets,
+        betsMade: state.betsMade.concat(action.bets),
       };
     case GET_BET:
       state.betsMade.find((bet) => {
