@@ -8,9 +8,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./components/LoginPage";
 
 function App() {
-  const { user, isLoading, isAuthenticated } = useAuth0();
+  const { user } = useAuth0();
 
-  console.log(user, isLoading, isAuthenticated);
   return (
     <div className="App">
       {!user ? (
@@ -20,9 +19,9 @@ function App() {
           <Header />
           <Routes>
             <Route path="ongoing" element={<Ongoing />} />
-            <Route path="upcoming" element={<Upcoming user="Teemu" />} />
+            <Route path="upcoming" element={<Upcoming user={user.given_name} />} />
             <Route path="results" element={<Results />} />
-            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="leaderboard" element={<Leaderboard user={user.given_name} />} />
             <Route path="*" element={<Navigate replace to="/upcoming" />} />
           </Routes>
         </>

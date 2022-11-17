@@ -14,10 +14,10 @@ Link to backend repository https://github.com/HolaTeemu/anaribets-backend
 - [x] Working betting (saving and fetching already made bets)
 - [x] Bet checking once per hour
 - [x] Point system
-- [ ] Authentication
+- [x] Authentication
 - [ ] Group creation
 - [ ] Group joining
-- [ ] Leaderboards
+- [x] Leaderboards
 - [ ] Highlight videos to results page
 - [ ] Top scorers list to results page
 - [ ] Small things (for example showing what bets did the user make and what went right with the results)

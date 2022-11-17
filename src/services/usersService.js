@@ -8,14 +8,18 @@ const getBets = (username) => {
   return axios.get(`/api/users/bets/${username.toLowerCase()}`);
 };
 
-// const getUpcomingGames = (startDate) => {
-//   return axios.get(
-//     `${baseUrl}/scores?startDate=${startDate}&endDate=${startDate}`
-//   );
-// };
+const getUsersGroups = (username) => {
+  return axios.get(`/api/users/${username.toLowerCase()}`);
+}
+
+const getGroupLeaderboard = (groupId) => {
+  return axios.get(`/api/groups/${groupId}`);
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   saveBets,
   getBets,
+  getUsersGroups,
+  getGroupLeaderboard
 };

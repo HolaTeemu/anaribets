@@ -6,15 +6,14 @@ import { useEffect, useState } from "react";
 import classes from "../styles/Upcoming.module.scss";
 
 import GameCard from "./GameCard";
-import { setBets } from "../store/actions/bets";
-import betsService from "../services/betsService";
+import { setBets, setUsersGroups } from "../store/actions/users";
+import usersService from "../services/usersService";
 
 const Upcoming = (props) => {
   const dispatch = useDispatch();
   const upcomingGames = useSelector((state) => state.games.upcomingGames);
-  const bets = useSelector((state) => state.bets.betsMade);
+  const bets = useSelector((state) => state.users.betsMade);
   const startDate = new Date().toISOString().split("T")[0];
-
   console.log(bets);
 
   const handleFormSubmit = (event) => {
@@ -29,7 +28,7 @@ const Upcoming = (props) => {
       }
     }
     dispatch(setBets(betsMade));
-    betsService.saveBets(betsMade, props.user)
+    usersService.saveBets(betsMade, props.user)
     .then((res) => {
       alert("Bets saved");
       console.log("Bets saved");
@@ -44,7 +43,7 @@ const Upcoming = (props) => {
       });
     }
     if (bets.length === 0) {
-      betsService.getBets(props.user)
+      usersService.getBets(props.user)
       .then((res) => {
         dispatch(setBets(res.data));
       })

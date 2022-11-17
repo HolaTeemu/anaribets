@@ -5,7 +5,7 @@ import { createFormattedDate } from "../helpers/helperFunctions";
 
 const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
   const dispatch = useDispatch();
-  const betsState = useSelector((state) => state.bets.betsMade);
+  const betsState = useSelector((state) => state.users.betsMade);
   let bet = null;
 
   // Create starting time for upcoming game
