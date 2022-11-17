@@ -8,6 +8,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { combineReducers } from "redux";
 import { BrowserRouter } from "react-router-dom";
+import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
 
 const rootReducer = combineReducers({
     games: gamesReducer,
@@ -21,7 +22,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
     <BrowserRouter>
+    <Auth0ProviderWithHistory>
       <App />
+    </Auth0ProviderWithHistory>
     </BrowserRouter>
   </Provider>
 );
