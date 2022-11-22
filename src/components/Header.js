@@ -13,6 +13,7 @@ const Header = () => {
         <NavLink to="/upcoming">Upcoming</NavLink>
         <NavLink to="/results">Results</NavLink>
         <NavLink to="/leaderboard">Leaderboard</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
       </nav>
       {isAuthenticated && <button onClick={() => logout()}>Logout</button>}
     </header>

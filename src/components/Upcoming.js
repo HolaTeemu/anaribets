@@ -2,19 +2,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setUpcomingGames } from "../store/actions/games";
 import gamesService from "../services/gamesService";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import ReactGA from "react-ga";
 import classes from "../styles/Upcoming.module.scss";
 
 import GameCard from "./GameCard";
-import { setBets, setUsersGroups } from "../store/actions/users";
+import { setBets } from "../store/actions/users";
 import usersService from "../services/usersService";
 
 const Upcoming = (props) => {
   const dispatch = useDispatch();
   const upcomingGames = useSelector((state) => state.games.upcomingGames);
+  const userId = useSelector((state) => state.users.userId);
   const bets = useSelector((state) => state.users.betsMade);
   const startDate = new Date().toISOString().split("T")[0];
-  console.log(bets);
 
   const handleFormSubmit = (event) => {
     let betsMade = [];
@@ -28,7 +29,7 @@ const Upcoming = (props) => {
       }
     }
     dispatch(setBets(betsMade));
-    usersService.saveBets(betsMade, props.user)
+    usersService.saveBets(betsMade, userId)
     .then((res) => {
       alert("Bets saved");
       console.log("Bets saved");
@@ -42,18 +43,22 @@ const Upcoming = (props) => {
         dispatch(setUpcomingGames(res.data));
       });
     }
-    if (bets.length === 0) {
-      usersService.getBets(props.user)
+    if (bets.length === 0 && userId) {
+      usersService.getBets(userId)
       .then((res) => {
         dispatch(setBets(res.data));
       })
       .catch((error) => console.log(error.message));
     }
-  }, [dispatch, startDate, upcomingGames.length, bets.length]);
+  }, [dispatch, startDate, upcomingGames.length, bets.length, userId]);
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, [])
 
   return (
     <div className={classes.upcomingPage}>
-      <h2>Tulevat pelit</h2>
+      <h2>Upcoming games</h2>
       <form onSubmit={handleFormSubmit}>
         {upcomingGames.map((game) => {
           if (game.status === "PREVIEW") {
@@ -71,11 +76,11 @@ const Upcoming = (props) => {
           }
         })}
         {bets.length === upcomingGames.length && upcomingGames.length !== 0 ? (
-          <h3>Kaikki betsit tehty!</h3>
+          <h3>Bets done!</h3>
         ) : upcomingGames.length === 0 ? (
           <h3>No upcoming games!</h3>
         ) : (
-          <button type="submit">Tallenna betsit</button>
+          <button type="submit">Save bets</button>
         )}
       </form>
     </div>

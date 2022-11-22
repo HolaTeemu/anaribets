@@ -6,9 +6,43 @@ import Leaderboard from "./components/Leaderboard";
 import Results from "./components/Results";
 import { useAuth0 } from "@auth0/auth0-react";
 import LoginPage from "./components/LoginPage";
+import { useDispatch } from "react-redux";
+import Profile from "./components/Profile";
+import { useEffect } from "react";
+import usersService from "./services/usersService";
+import { setUserDetails } from "./store/actions/users";
+import ReactGA from "react-ga";
+
+const TRACKING_ID = "UA-217792756-2";
+ReactGA.initialize(TRACKING_ID);
 
 function App() {
+  const dispatch = useDispatch();
   const { user } = useAuth0();
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      usersService
+        .checkIfUserExists(user.email)
+        .then((result) => {
+          if (result.data.length === 0) {
+            usersService
+              .createUser(user.given_name || user.nickname, user.email)
+              .then((result) => {
+                const { username, id } = result.data;
+                dispatch(setUserDetails(username, id));
+              });
+          } else {
+            const { username, id } = result.data;
+            dispatch(setUserDetails(username, id));
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [dispatch, user]);
 
   return (
     <div className="App">
@@ -16,15 +50,17 @@ function App() {
         <LoginPage />
       ) : (
         <>
-          <Header />
-          <Routes>
-            <Route path="ongoing" element={<Ongoing />} />
-            <Route path="upcoming" element={<Upcoming user={user.given_name} />} />
-            <Route path="results" element={<Results />} />
-            <Route path="leaderboard" element={<Leaderboard user={user.given_name} />} />
-            <Route path="*" element={<Navigate replace to="/upcoming" />} />
-          </Routes>
-        </>
+        <Header />
+        <Routes>
+          <Route path="login" element={<LoginPage />} />
+          <Route path="ongoing" element={<Ongoing />} />
+          <Route path="upcoming" element={<Upcoming />} />
+          <Route path="results" element={<Results />} />
+          <Route path="leaderboard" element={<Leaderboard />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="*" exact element={<Navigate replace to="/leaderboard" />} />
+        </Routes>
+      </>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { setResults } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import classes from "../styles/Results.module.scss";
+import ReactGA from "react-ga";
 
 import GameCard from "./GameCard";
 
@@ -24,10 +25,13 @@ const Results = () => {
     }
   }, [dispatch, results, results.length]);
 
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, [])
+
   return (
     <div className={classes.resultsPage}>
-      <h2>Viime yön tulokset</h2>
-      {/* <h3>{startDate}</h3> */}
+      <h2>Last night's results</h2>
       {results.map((game) => {
         if (game.status === "FINAL") {
           const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;

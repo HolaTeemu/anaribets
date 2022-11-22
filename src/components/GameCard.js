@@ -1,10 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
-import TeamLogo from "./TeamLogo";
+import { useSelector } from "react-redux";
 import classes from "../styles/GameCard.module.scss";
 import { createFormattedDate } from "../helpers/helperFunctions";
 
 const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
-  const dispatch = useDispatch();
   const betsState = useSelector((state) => state.users.betsMade);
   let bet = null;
 
@@ -14,6 +12,10 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
   // Away and home abbreviation
   const awayAbbr = game.awayAbbr;
   const homeAbbr = game.homeAbbr;
+
+  // Away and home cities
+  const awayCity = game.awayCity;
+  const homeCity = game.homeCity;
 
   // Check if the bet has always been made for the game
   betsState.forEach((game) => {
@@ -27,7 +29,6 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
       {upcomingGame && <h3>{startTime}</h3>}
       {ongoingGame && <h3>{game.currentPeriod} period</h3>}
       <div className={classes.gameCard}>
-        <TeamLogo team={awayAbbr} />
         {upcomingGame && (
           <input
             type="radio"
@@ -42,9 +43,9 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
         {!upcomingGame && (
           <p className={classes.goalAmount}>{game.awayGoals}</p>
         )}
-        <p className={classes.teamAbbr}>{awayAbbr}</p>
+        <p className={classes.teamCity}>{awayCity}</p>
         <p>-</p>
-        <p className={classes.teamAbbr}>{homeAbbr}</p>
+        <p className={classes.teamCity}>{homeCity}</p>
 
         {upcomingGame && (
           <input
@@ -60,7 +61,6 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
         {!upcomingGame && (
           <p className={classes.goalAmount}>{game.homeGoals}</p>
         )}
-        <TeamLogo team={homeAbbr} />
       </div>
       {ongoingGame && (
         <h3>{game.currentPeriodTimeLeft}</h3>

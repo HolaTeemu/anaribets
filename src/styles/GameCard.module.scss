@@ -60,6 +60,9 @@
 .betInput:checked {
   background: #40e0d0;
 }
+.betInput:disabled:not(:checked) {
+  display: none;
+}
 .betInput:checked::before {
   width: 35px;
   height: 35px;
