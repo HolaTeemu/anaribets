@@ -52,7 +52,7 @@ const Leaderboard = (props) => {
         ]);
       });
     }
-  }, [dispatch, groups, groups.length, userId]);
+  }, [dispatch, groups.length, userId]);
 
   useEffect(() => {
     if (groupNames.length > 0) {
@@ -113,8 +113,9 @@ const Leaderboard = (props) => {
     <div>
       <h2 class="text-4xl text-center my-12">Your leaderboards</h2>
       {groups.length === 0 ? (
-        <h3>
-          You are not in any group yet. Create or join one to start betting.
+        <h3 class="text-2xl text-center my-16">
+          You are not in any group yet.<br/>
+          Create or join one to start betting.
         </h3>
       ) : (
         groupLeaderboards.map((leaderboard) => {
@@ -175,7 +176,7 @@ const Leaderboard = (props) => {
           Join new Group
         </button>
         <button
-          class="mt-4 mx-auto w-1/2 font-semibold text-teal-300 py-1.5 px-5 hover:bg-teal-800 border-0 rounded-md"
+          class="mt-4 mx-auto w-1/2 font-semibold text-teal-300 py-1.5 px-5 hover:bg-teal-700 border-0 rounded-md"
           onClick={() => createGroup(groupNameInput, groupPasswordInput)}
         >
           Create new group

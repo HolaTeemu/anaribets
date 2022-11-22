@@ -1,26 +1,26 @@
-.gameCard {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 100px;
-  p {
-    font-size: 2em;
-    font-weight: 500;
-    margin: 0 2.5%;
-  }
-  .goalAmount,
-  .betInput {
-    margin: 5%;
-  }
-}
+// .gameCard {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   max-height: 100px;
+//   p {
+//     font-size: 2em;
+//     font-weight: 500;
+//     margin: 0 2.5%;
+//   }
+//   .goalAmount,
+//   .betInput {
+//     margin: 5%;
+//   }
+// }
 
-.gameCardContainer {
-  margin: 0 auto;
-  padding-bottom: 1em;
-  &:nth-of-type(even) {
-    background-color: #585858;
-  }
-}
+// .gameCardContainer {
+//   margin: 0 auto;
+//   padding-bottom: 1em;
+//   &:nth-of-type(even) {
+//     background-color: #585858;
+//   }
+// }
 
 .betInput {
   -webkit-appearance: none;
@@ -37,7 +37,8 @@
   transition: all 0.15s ease-out 0s;
   background: #cbd1d8;
   border: none;
-  color: #fff;
+  font-family: "Poppins", sans-serif;
+  color: black;
   cursor: pointer;
   display: inline-block;
   outline: none;

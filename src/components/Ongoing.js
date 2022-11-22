@@ -4,7 +4,6 @@ import { setOngoingGames } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
-import classes from "../styles/Upcoming.module.scss";
 
 import GameCard from "./GameCard";
 
@@ -39,8 +38,8 @@ const Ongoing = () => {
   }, [])
 
   return (
-    <div className={classes.upcomingPage}>
-      <h2>Ongoing games</h2>
+    <div>
+      <h2 class="text-4xl text-center my-12">Ongoing games</h2>
       <form onSubmit={handleFormSubmit}>
         {ongoingGames.map((game) => {
           const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
@@ -53,7 +52,7 @@ const Ongoing = () => {
             />
           );
         })}
-        {ongoingGames.length === 0 && <h3>No ongoing games</h3>}
+        {ongoingGames.length === 0 && <h3 class="text-3xl text-center my-20">Waiting for games to start...</h3>}
       </form>
     </div>
   );

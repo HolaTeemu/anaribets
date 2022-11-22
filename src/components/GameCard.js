@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import classes from "../styles/GameCard.module.scss";
+import "../styles/RadioButton.scss";
 import { createFormattedDate } from "../helpers/helperFunctions";
 
 const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
@@ -25,46 +25,68 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
   });
 
   return (
-    <div className={classes.gameCardContainer}>
-      {upcomingGame && <h3>{startTime}</h3>}
-      {ongoingGame && <h3>{game.currentPeriod} period</h3>}
-      <div className={classes.gameCard}>
+    <div class="flex flex-col w-full my-6">
+      {upcomingGame && (
+        <h3 class="text-2xl text-center mb-4 text-teal-400">{startTime}</h3>
+      )}
+      {ongoingGame && (
+        <h3 class="text-xl text-center">{game.currentPeriod} period</h3>
+      )}
+      <div class="flex items-center w-full">
         {upcomingGame && (
-          <input
-            type="radio"
-            className={classes.betInput}
-            name={gameId}
-            value={awayAbbr}
-            disabled={bet}
-            defaultChecked={bet === awayAbbr ? true : false}
-          />
+          <div class="w-1/4 flex justify-center">
+            <input
+              type="radio"
+              class="betInput"
+              name={gameId}
+              value={awayAbbr}
+              disabled={bet}
+              defaultChecked={bet === awayAbbr ? true : false}
+            />
+          </div>
         )}
-        {/* {ongoingGame && <p>{game.scores[awayAbbr]}</p>} */}
         {!upcomingGame && (
-          <p className={classes.goalAmount}>{game.awayGoals}</p>
+          <p
+            class={`text-4xl font-light w-1/4 text-center ${
+              game.awayGoals > game.homeGoals
+                ? "text-green-400"
+                : "text-red-400"
+            }`}
+          >
+            {game.awayGoals}
+          </p>
         )}
-        <p className={classes.teamCity}>{awayCity}</p>
-        <p>-</p>
-        <p className={classes.teamCity}>{homeCity}</p>
+        <div class="flex text-4xl font-light w-2/4 text-center">
+          <p class="w-1/3">{awayCity}</p>
+          <p class="w-1/3">-</p>
+          <p class="w-1/3">{homeCity}</p>
+        </div>
 
         {upcomingGame && (
-          <input
-            type="radio"
-            className={classes.betInput}
-            name={gameId}
-            value={homeAbbr}
-            disabled={bet}
-            defaultChecked={bet === homeAbbr ? true : false}
-          />
+          <div class="w-1/4 flex justify-center">
+            <input
+              type="radio"
+              class="betInput"
+              name={gameId}
+              value={homeAbbr}
+              disabled={bet}
+              defaultChecked={bet === homeAbbr ? true : false}
+            />
+          </div>
         )}
-        {/* {ongoingGame && <p>{game.homeGoals}</p>} */}
         {!upcomingGame && (
-          <p className={classes.goalAmount}>{game.homeGoals}</p>
+          <p
+            class={`text-4xl font-light w-1/4 text-center ${
+              game.homeGoals > game.awayGoals
+                ? "text-green-400"
+                : "text-red-400"
+            }`}
+          >
+            {game.homeGoals}
+          </p>
         )}
       </div>
-      {ongoingGame && (
-        <h3>{game.currentPeriodTimeLeft}</h3>
-      )}
+      {ongoingGame && <h3>{game.currentPeriodTimeLeft}</h3>}
     </div>
   );
 };

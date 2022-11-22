@@ -4,7 +4,6 @@ import { setUpcomingGames } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
-import classes from "../styles/Upcoming.module.scss";
 
 import GameCard from "./GameCard";
 import { setBets } from "../store/actions/users";
@@ -29,12 +28,13 @@ const Upcoming = (props) => {
       }
     }
     dispatch(setBets(betsMade));
-    usersService.saveBets(betsMade, userId)
-    .then((res) => {
-      alert("Bets saved");
-      console.log("Bets saved");
-    })
-    .catch((error) => console.log(error.message));
+    usersService
+      .saveBets(betsMade, userId)
+      .then((res) => {
+        alert("Bets saved");
+        console.log("Bets saved");
+      })
+      .catch((error) => console.log(error.message));
   };
 
   useEffect(() => {
@@ -44,22 +44,23 @@ const Upcoming = (props) => {
       });
     }
     if (bets.length === 0 && userId) {
-      usersService.getBets(userId)
-      .then((res) => {
-        dispatch(setBets(res.data));
-      })
-      .catch((error) => console.log(error.message));
+      usersService
+        .getBets(userId)
+        .then((res) => {
+          dispatch(setBets(res.data));
+        })
+        .catch((error) => console.log(error.message));
     }
   }, [dispatch, startDate, upcomingGames.length, bets.length, userId]);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
-  }, [])
+  }, []);
 
   return (
-    <div className={classes.upcomingPage}>
-      <h2>Upcoming games</h2>
-      <form onSubmit={handleFormSubmit}>
+    <div>
+      <h2 class="text-4xl text-center my-12">Upcoming games</h2>
+      <form class="flex flex-col mx-auto w-2/4" onSubmit={handleFormSubmit}>
         {upcomingGames.map((game) => {
           if (game.status === "PREVIEW") {
             const gameId = `${game.awayAbbr}${game.homeAbbr}${
@@ -76,11 +77,16 @@ const Upcoming = (props) => {
           }
         })}
         {bets.length === upcomingGames.length && upcomingGames.length !== 0 ? (
-          <h3>Bets done!</h3>
+          <h3 class="text-3xl text-center my-20">Bets done!</h3>
         ) : upcomingGames.length === 0 ? (
-          <h3>No upcoming games!</h3>
+          <h3 class="text-3xl text-center my-20">No upcoming games!</h3>
         ) : (
-          <button type="submit">Save bets</button>
+          <button
+            class="mt-14 mx-auto w-1/6 font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
+            type="submit"
+          >
+            Save bets
+          </button>
         )}
       </form>
     </div>
