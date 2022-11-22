@@ -5,7 +5,7 @@ import Upcoming from "./components/Upcoming";
 import Leaderboard from "./components/Leaderboard";
 import Results from "./components/Results";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginPage from "./components/LoginPage";
+import LandingPage from "./components/LandingPage";
 import { useDispatch } from "react-redux";
 import Profile from "./components/Profile";
 import { useEffect } from "react";
@@ -21,7 +21,6 @@ function App() {
   const { user } = useAuth0();
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       usersService
         .checkIfUserExists(user.email)
@@ -45,23 +44,25 @@ function App() {
   }, [dispatch, user]);
 
   return (
-    <div className="App">
-      {!user ? (
-        <LoginPage />
-      ) : (
-        <>
-        <Header />
-        <Routes>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="ongoing" element={<Ongoing />} />
-          <Route path="upcoming" element={<Upcoming />} />
-          <Route path="results" element={<Results />} />
-          <Route path="leaderboard" element={<Leaderboard />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="*" exact element={<Navigate replace to="/leaderboard" />} />
-        </Routes>
-      </>
-      )}
+    <div className="text-gray-300 w-screen h-full min-h-screen bg-gray-700">
+      <Header />
+      {!user && <LandingPage />}
+      <Routes>
+        {user && (
+          <>
+            <Route path="ongoing" element={<Ongoing />} />
+            <Route path="upcoming" element={<Upcoming />} />
+            <Route path="results" element={<Results />} />
+            <Route path="leaderboard" element={<Leaderboard />} />
+            <Route path="profile" element={<Profile />} />
+            <Route
+              path="*"
+              exact
+              element={<Navigate replace to="/leaderboard" />}
+            />
+          </>
+        )}
+      </Routes>
     </div>
   );
 }
