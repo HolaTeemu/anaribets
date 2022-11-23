@@ -5,7 +5,7 @@ const Header = () => {
   const { user, isAuthenticated, logout, loginWithRedirect } = useAuth0();
 
   return (
-    <header class="bg-gray-600 font-poppins flex w-screen h-28 items-center">
+    <header class="bg-gray-600 font-poppins flex w-full max-w-full h-28 items-center">
       {!user && (
         <h1 class="inline-block text-4xl w-screen mr-0 text-center">BetNHLFree</h1>
       )}

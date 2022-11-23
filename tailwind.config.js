@@ -11,6 +11,12 @@ module.exports = {
     fontFamily: {
       poppins: ["Poppins", "sans-serif"],
     },
+    extend: {
+      gridTemplateRows: {
+        // sticky footer grid
+        'sticky-layout': 'auto 1fr auto',
+      }
+    }
   },
   plugins: [],
 };

@@ -58,7 +58,7 @@ const Upcoming = (props) => {
   }, []);
 
   return (
-    <div>
+    <>
       <h2 class="text-4xl text-center my-12">Upcoming games</h2>
       <form class="flex flex-col mx-auto w-2/4" onSubmit={handleFormSubmit}>
         {upcomingGames.map((game) => {
@@ -89,7 +89,7 @@ const Upcoming = (props) => {
           </button>
         )}
       </form>
-    </div>
+    </>
   );
 };
 

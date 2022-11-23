@@ -43,6 +43,7 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
               disabled={bet}
               defaultChecked={bet === awayAbbr ? true : false}
             />
+            <div class="circle"></div>
           </div>
         )}
         {!upcomingGame && (
@@ -72,6 +73,7 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
               disabled={bet}
               defaultChecked={bet === homeAbbr ? true : false}
             />
+            <div class="circle"></div>
           </div>
         )}
         {!upcomingGame && (
@@ -87,6 +89,10 @@ const GameCard = ({ game, upcomingGame, gameId, ongoingGame }) => {
         )}
       </div>
       {ongoingGame && <h3>{game.currentPeriodTimeLeft}</h3>}
+      <div>
+        {game.overtime && <p class="text-2xl text-center -mt-3">OT</p>}
+        {game.shootout && <p class="text-2xl text-center -mt-3">SO</p>}
+      </div>
     </div>
   );
 };

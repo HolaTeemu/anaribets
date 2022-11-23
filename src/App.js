@@ -1,4 +1,5 @@
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { Route, Navigate, Routes } from "react-router-dom";
 import Ongoing from "./components/Ongoing";
 import Upcoming from "./components/Upcoming";
@@ -44,7 +45,7 @@ function App() {
   }, [dispatch, user]);
 
   return (
-    <div className="text-gray-300 w-screen h-full min-h-screen bg-gray-700">
+    <div className="text-gray-300 w-full min-w-screen max-w-full h-full min-h-screen bg-gray-700 grid grid-rows-sticky-layout">
       <Header />
       {!user && <LandingPage />}
       <Routes>
@@ -63,6 +64,7 @@ function App() {
           </>
         )}
       </Routes>
+      <Footer />
     </div>
   );
 }
