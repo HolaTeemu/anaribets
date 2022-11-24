@@ -55,7 +55,7 @@
     display: inline-block;
     transform: translateY(9px);
     box-shadow: 3px 3px 6px rgba(0, 114, 101, 0.75);
-    transition: all .2s ease-in-out;
+    transition: all .1s ease-in-out;
   }
 }
 .betInput:disabled:not(:checked) {

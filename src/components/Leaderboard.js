@@ -52,6 +52,7 @@ const Leaderboard = (props) => {
         ]);
       });
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, groups.length, userId]);
 
   useEffect(() => {
@@ -114,7 +115,8 @@ const Leaderboard = (props) => {
       <h2 class="text-4xl text-center my-12">Your leaderboards</h2>
       {groups.length === 0 ? (
         <h3 class="text-2xl text-center my-16">
-          You are not in any group yet.<br/>
+          You are not in any group yet.
+          <br />
           Create or join one to start betting.
         </h3>
       ) : (
@@ -123,11 +125,14 @@ const Leaderboard = (props) => {
             (a, b) => b.points - a.points
           );
           return (
-            <div class="flex mx-auto text-center flex-col justify-center items-center w-1/2 mb-20">
-              <h2 class="w-1/2 text-4xl font-normal text-left">
+            <div
+              class="flex mx-auto text-center flex-col justify-center items-center w-1/2 mb-20"
+              key={leaderboard.groupname}
+            >
+              <h2 class="w-1/2 text-4xl font-normal text-left capitalize">
                 {leaderboard.groupname}
               </h2>
-              <table class="w-1/2 text-center">
+              <table class="w-1/2 text-center" key={leaderboard.groupname}>
                 <thead class="text-2xl bg-gray-600 rounded">
                   <tr>
                     <th class="w-1/4 font-light">Position</th>
@@ -136,7 +141,7 @@ const Leaderboard = (props) => {
                   </tr>
                 </thead>
                 {sortedLeaderboard.map((player, i) => (
-                  <tbody class="text-xl">
+                  <tbody class="text-xl" key={player.username}>
                     <tr>
                       <td>{i + 1}</td>
                       <td>{player.username}</td>
@@ -157,6 +162,7 @@ const Leaderboard = (props) => {
           onChange={handleGroupNameInput}
           value={groupNameInput}
           class="text-black text-xl h-10 bg-gray-400 rounded-md w-11/12 p-2 focus:outline outline-teal-500"
+          spellCheck={false}
         />
         <label class="text-xl text-left">Group password</label>
         <div class="flex align-middle">
@@ -165,6 +171,7 @@ const Leaderboard = (props) => {
             onChange={handleGroupPasswordInput}
             value={groupPasswordInput}
             class="text-black text-xl h-10 bg-gray-400 rounded-md w-11/12 p-2 focus:outline outline-teal-500"
+            spellCheck={false}
           />
           <img
             class="w-1/12 h-10 cursor-pointer"
@@ -172,7 +179,10 @@ const Leaderboard = (props) => {
             src={passwordHidden ? showPasswordImg : hidePasswordImg}
           />
         </div>
-        <button class="mt-6 mx-auto w-1/2 font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700" onClick={() => joinGroup(groupNameInput, groupPasswordInput)}>
+        <button
+          class="mt-6 mx-auto w-1/2 font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
+          onClick={() => joinGroup(groupNameInput, groupPasswordInput)}
+        >
           Join new Group
         </button>
         <button

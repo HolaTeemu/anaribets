@@ -6,12 +6,18 @@ const Header = () => {
 
   return (
     <header class="bg-gray-600 font-poppins flex w-full max-w-full h-28 items-center">
-      {!user && (
-        <h1 class="inline-block text-4xl w-screen mr-0 text-center">BetNHLFree</h1>
-      )}
-      {user && (
-        <h1 class="inline-block text-4xl w-1/5 mr-0 text-center">BetNHLFree</h1>
-      )}
+      {/* {!user && (
+        <NavLink to="/" class="mx-auto">
+          <h1 class="inline-block text-4xl w-full text-center hover:text-teal-300 hover:drop-shadow-2xl">BetNHLFree</h1>
+        </NavLink>
+      )} */}
+      <div  class={`mx-auto ${user ? "w-1/5" : ""}`}>
+        <NavLink to="/">
+          <h1 class="inline-block text-4xl mx-auto text-center hover:text-teal-300 hover:drop-shadow-2xl w-full">
+            BetNHLFree
+          </h1>
+        </NavLink>
+      </div>
       {user && (
         <nav class="text-2xl font-thin flex justify-evenly items-center w-3/5 m-0">
           <NavLink to="/ongoing" class="no-underline hover:underline">

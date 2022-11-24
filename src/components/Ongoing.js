@@ -5,7 +5,7 @@ import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
 
-import GameCard from "./GameCard";
+import OngoingGameCard from "./OngoingGameCard";
 
 const Ongoing = () => {
   const dispatch = useDispatch();
@@ -35,25 +35,30 @@ const Ongoing = () => {
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
-  }, [])
+  }, []);
 
   return (
     <div>
       <h2 class="text-4xl text-center my-12">Ongoing games</h2>
-      <form onSubmit={handleFormSubmit}>
-        {ongoingGames.map((game) => {
-          const gameId = `${game.awayAbbr}${game.homeAbbr}${game.startTime.split("T")[0]}`;
-          return (
-            <GameCard
-              game={game}
-              ongoingGame={true}
-              gameId={gameId}
-              key={gameId}
-            />
-          );
-        })}
-        {ongoingGames.length === 0 && <h3 class="text-3xl text-center my-20">Waiting for games to start...</h3>}
-      </form>
+      <div class="flex mx-auto w-4/12 border-b-2 border-teal-800 pb-4">
+        <p class="text-3xl font-semibold w-1/2 text-center">Home</p>
+        <p class="text-3xl font-semibold w-1/2 text-center">Away</p>
+      </div>
+      <div class="flex flex-col mx-auto w-2/4">
+        <form onSubmit={handleFormSubmit}>
+          {ongoingGames.map((game) => {
+            const gameId = `${game.awayAbbr}${game.homeAbbr}${
+              game.startTime.split("T")[0]
+            }`;
+            return <OngoingGameCard game={game} gameId={gameId} key={gameId} />;
+          })}
+          {ongoingGames.length === 0 && (
+            <h3 class="text-3xl text-center my-20">
+              Waiting for games to start...
+            </h3>
+          )}
+        </form>
+      </div>
     </div>
   );
 };

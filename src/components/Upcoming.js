@@ -5,7 +5,7 @@ import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
 
-import GameCard from "./GameCard";
+import UpcomingGameCard from "./UpcomingGameCard";
 import { setBets } from "../store/actions/users";
 import usersService from "../services/usersService";
 
@@ -59,27 +59,29 @@ const Upcoming = (props) => {
 
   return (
     <>
-      <h2 class="text-4xl text-center my-12">Upcoming games</h2>
       <form class="flex flex-col mx-auto w-2/4" onSubmit={handleFormSubmit}>
-        {upcomingGames.map((game) => {
-          if (game.status === "PREVIEW") {
-            const gameId = `${game.awayAbbr}${game.homeAbbr}${
-              game.startTime.split("T")[0]
-            }`;
-            return (
-              <GameCard
-                game={game}
-                upcomingGame={true}
-                gameId={gameId}
-                key={gameId}
-              />
-            );
-          }
-        })}
+        <h2 class="text-4xl text-center my-12">Upcoming games</h2>
+        <div class="flex mx-auto w-2/3 border-b-2 border-teal-800 pb-4">
+          <p class="text-3xl font-semibold w-1/2 text-center">Home</p>
+          <p class="text-3xl font-semibold w-1/2 text-center">Away</p>
+        </div>
+        {upcomingGames.length > 0 &&
+          upcomingGames.map((game) => {
+            if (game.status === "PREVIEW") {
+              const gameId = `${game.awayAbbr}${game.homeAbbr}${
+                game.startTime.split("T")[0]
+              }`;
+              return (
+                <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
+              );
+            }
+          })}
         {bets.length === upcomingGames.length && upcomingGames.length !== 0 ? (
           <h3 class="text-3xl text-center my-20">Bets done!</h3>
         ) : upcomingGames.length === 0 ? (
-          <h3 class="text-3xl text-center my-20">No upcoming games!</h3>
+          <h3 class="text-3xl text-center my-20">
+            No games on the upcoming night
+          </h3>
         ) : (
           <button
             class="mt-14 mx-auto w-1/6 font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"

@@ -44,6 +44,7 @@ const Profile = () => {
           type="text"
           value={usernameInput}
           onChange={usernameInputHandler}
+          spellCheck={false}
         />
       </div>
       <p class="text-md w-full italic">
@@ -52,7 +53,7 @@ const Profile = () => {
       <h3 class="text-2xl mt-14 w-1/3">Groups</h3>
       <ul>
         {groupNames.length !== 0 ? (
-          groupNames.map((group) => <li>{group}</li>)
+          groupNames.map((group) => <li key={group}>{group}</li>)
         ) : (
           <p class="text-xl mt-1">
             You are not in a group yet. Join or create one to start betting!

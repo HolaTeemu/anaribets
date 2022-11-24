@@ -47,8 +47,8 @@ function App() {
   return (
     <div className="text-gray-300 w-full min-w-screen max-w-full h-full min-h-screen bg-gray-700 grid grid-rows-sticky-layout">
       <Header />
-      {!user && <LandingPage />}
       <Routes>
+        <Route path="/" element={<LandingPage />} />
         {user && (
           <>
             <Route path="ongoing" element={<Ongoing />} />
@@ -56,13 +56,9 @@ function App() {
             <Route path="results" element={<Results />} />
             <Route path="leaderboard" element={<Leaderboard />} />
             <Route path="profile" element={<Profile />} />
-            <Route
-              path="*"
-              exact
-              element={<Navigate replace to="/leaderboard" />}
-            />
           </>
         )}
+        <Route path="*" exact element={<Navigate replace to="/" />} />
       </Routes>
       <Footer />
     </div>
