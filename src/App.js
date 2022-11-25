@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import usersService from "./services/usersService";
 import { setUserDetails } from "./store/actions/users";
 import ReactGA from "react-ga";
+import TOS from "./components/TOS";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 const TRACKING_ID = "UA-217792756-2";
 ReactGA.initialize(TRACKING_ID);
@@ -45,10 +47,12 @@ function App() {
   }, [dispatch, user]);
 
   return (
-    <div className="text-gray-300 w-full min-w-screen max-w-full h-full min-h-screen bg-gray-700 grid grid-rows-sticky-layout">
+    <div className="text-gray-300 w-full min-w-screen max-w-full h-full min-h-screen bg-gray-700 grid grid-rows-sticky-layout font-poppins">
       <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="tos" element={<TOS />} />
+        <Route path="privacypolicy" element={<PrivacyPolicy />} />
         {user && (
           <>
             <Route path="ongoing" element={<Ongoing />} />

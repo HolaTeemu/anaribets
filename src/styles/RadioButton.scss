@@ -19,11 +19,11 @@
   cursor: pointer;
   display: inline-block;
   outline: none;
-  z-index: 1000;
+  z-index: 8;
 }
 
 .circle {
-  z-index: 1000;
+  z-index: 9;
   position: absolute;
   border-radius: 50%;
   background: #5eead4;
@@ -53,11 +53,47 @@
     height: 18px;
     opacity: 1;
     display: inline-block;
-    transform: translateY(9px);
+    transform: translateY(0px);
     box-shadow: 3px 3px 6px rgba(0, 114, 101, 0.75);
-    transition: all .1s ease-in-out;
+    transition: all 0.1s ease-in-out;
   }
 }
 .betInput:disabled:not(:checked) {
   display: none;
+}
+
+@media (max-width: 976px) {
+  .betInput {
+    height: 30px;
+    width: 30px;
+    &:checked {
+      & + .circle {
+        width: 14px;
+        height: 14px;
+        opacity: 1;
+        display: inline-block;
+        transform: translateY(0px);
+        box-shadow: 3px 3px 6px rgba(0, 114, 101, 0.75);
+        transition: all 0.1s ease-in-out;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .betInput {
+    height: 24px;
+    width: 24px;
+    &:checked {
+      & + .circle {
+        width: 10px;
+        height: 10px;
+        opacity: 1;
+        display: inline-block;
+        transform: translateY(0px);
+        box-shadow: 3px 3px 6px rgba(0, 114, 101, 0.75);
+        transition: all 0.1s ease-in-out;
+      }
+    }
+  }
 }

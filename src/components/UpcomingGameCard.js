@@ -26,15 +26,17 @@ const UpcomingGameCard = ({ game, gameId }) => {
 
   return (
     <div class="flex flex-col w-full my-6">
-      <h3 class="text-2xl text-center mb-4 text-teal-400">{startTime}</h3>
+      <h3 class="lg:text-2xl text-xl text-center mb-4 text-teal-400">
+        {startTime}
+      </h3>
       <div class="flex items-center w-full">
-        <div class="flex text-4xl font-light w-1/4 text-right">
+        <div class="flex text-lg xl:text-4xl lg:text-4xl md:text-3xl sm:text-2xl font-light md:w-1/4 w-1/3 sm:text-right text-center">
           <p class="w-full">{`${homeCity} ${
             homeCity === "New York" ? homeAbbr.charAt(2) : ""
           }`}</p>
         </div>
-        <div class="flex text-4xl font-light w-2/4 text-center">
-          <div class="w-1/3 flex justify-center">
+        <div class="flex text-4xl font-light md:w-2/4 w-1/3 text-center">
+          <div class="sm:w-1/3 w-2/5 flex justify-center items-center">
             <input
               type="radio"
               class="betInput"
@@ -45,8 +47,8 @@ const UpcomingGameCard = ({ game, gameId }) => {
             />
             <div class="circle"></div>
           </div>
-          <p class="w-1/3">-</p>
-          <div class="w-1/3 flex justify-center">
+          <p class="sm:w-1/3 w-1/5">-</p>
+          <div class="sm:w-1/3 w-2/5 flex justify-center items-center">
             <input
               type="radio"
               class="betInput"
@@ -58,7 +60,7 @@ const UpcomingGameCard = ({ game, gameId }) => {
             <div class="circle"></div>
           </div>
         </div>
-        <div class="flex text-4xl font-light w-1/4 text-left">
+        <div class="flex text-lg xl:text-4xl lg:text-3xl md:text-3xl sm:text-2xl font-light md:w-1/4 w-1/3 sm:text-left text-center">
           <p class="w-full">{`${awayCity} ${
             awayCity === "New York" ? awayAbbr.charAt(2) : ""
           }`}</p>

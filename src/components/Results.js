@@ -29,27 +29,33 @@ const Results = () => {
   }, []);
 
   return (
-    <div>
-      <h2 class="text-4xl text-center my-12">Last night's results</h2>
-      <div class="flex mx-auto w-4/12 border-b-2 border-teal-800 pb-4">
-        <p class="text-3xl font-semibold w-1/2 text-center">Home</p>
-        <p class="text-3xl font-semibold w-1/2 text-center">Away</p>
+    <div class="flex flex-col mx-auto w-full xl:w-2/4 lg:w-3/4 md:w-5/6">
+      <h2 class="text-2xl sm:text-3xl lg:text-4xl text-center my-12">
+        Last night's results
+      </h2>
+      <div class="flex mx-auto sm:w-2/3 w-4/5 border-b-2 border-teal-800 pb-4">
+        <p class="text-xl sm:text-2xl lg:text-3xl font-semibold w-1/2 text-center">
+          Home
+        </p>
+        <p class="text-xl sm:text-2xl lg:text-3xl font-semibold w-1/2 text-center">
+          Away
+        </p>
       </div>
-      <div class="flex flex-col mx-auto w-2/4">
-        {results.map((game) => {
-          const gameId = `${game.awayAbbr}${game.homeAbbr}${
-            game.startTime.split("T")[0]
-          }`;
-          return <ResultsGameCard game={game} key={gameId} />;
-        })}
-        {results.length === 0 && (
-          <h3 class="text-3xl text-center my-20">No results to show</h3>
-        )}
-      </div>
-      <p class="text-md text-center mt-20">
-        The colors indicate which team won. <br />
-        Indicators about the right and wrong bets will be added later
-      </p>
+      {results.map((game) => {
+        const gameId = `${game.awayAbbr}${game.homeAbbr}${
+          game.startTime.split("T")[0]
+        }`;
+        return <ResultsGameCard game={game} key={gameId} />;
+      })}
+      {results.length === 0 && (
+        <h3 class="text-3xl text-center my-20">No results to show</h3>
+      )}
+      {results.length > 0 && (
+        <p class="text-md text-center mt-20 w-4/5 mx-auto">
+          The colors indicate which team won. <br />
+          Indicators about the right and wrong bets will be added later
+        </p>
+      )}
     </div>
   );
 };

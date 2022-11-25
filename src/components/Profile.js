@@ -33,7 +33,7 @@ const Profile = () => {
 
   return (
     <form
-      class="w-1/4 mx-auto flex flex-col justify-center items-left"
+      class="xl:w-1/4 lg:w-2/5 md:w-1/2 sm:w-3/5 w-11/12 mx-auto flex flex-col justify-center items-left"
       onSubmit={handleNicknameChange}
     >
       <h2 class="text-4xl text-center my-12">Hello {username}</h2>
@@ -61,7 +61,7 @@ const Profile = () => {
         )}
       </ul>
       <button
-        class="mt-14 mx-auto w-1/3 font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
+        class="mt-14 mx-auto w-auto font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
         type="submit"
       >
         Save
