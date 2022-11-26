@@ -20,21 +20,23 @@ const Header = () => {
     <header class="bg-gray-600 flex w-full max-w-full h-28 items-center z-10">
       <div class={`mx-auto ${user ? "md:w-1/5 w-full" : ""}`}>
         <NavLink to="/">
-          <h1 class="md:inline-block md:relative md:h-auto flex justify-center items-center absolute h-28 top-0 xl:text-4xl lg:text-3xl md:text-2xl text-3xl mx-auto text-center hover:text-teal-300 hover:drop-shadow-2xl w-full">
+          <h1 class="md:inline-block md:relative md:h-auto flex justify-center items-center absolute h-28 left-0 top-0 xl:text-4xl lg:text-3xl md:text-2xl text-3xl mx-auto text-center hover:text-teal-300 hover:drop-shadow-2xl sm:w-full w-3/5">
             BetNHLFree
           </h1>
         </NavLink>
       </div>
-      <div
-        class="flex md:hidden absolute right-0 top-0 h-28 sm:w-28 w-14 justify-center items-center"
-        onClick={menuHandler}
-      >
-        <img
-          class="w-10 h-10"
-          src={isOpen ? closeMenuImg : menuImg}
-          alt="Open menu button"
-        />
-      </div>
+      {user && (
+        <div
+          class="flex md:hidden absolute right-0 top-0 h-28 sm:w-28 w-14 justify-center items-center"
+          onClick={menuHandler}
+        >
+          <img
+            class="w-10 h-10"
+            src={isOpen ? closeMenuImg : menuImg}
+            alt="Open menu button"
+          />
+        </div>
+      )}
       {user && (
         <div
           class={`top-28 md:top-0 left-0 w-full md:w-4/5 h-2/3 md:h-auto m-0 flex md:flex-row flex-col bg-gray-600 z-10 ${
@@ -111,7 +113,8 @@ const Header = () => {
         </div>
       )}
       {!isAuthenticated && (
-        <div class="absolute flex justify-center right-0 w-1/5">
+        // <div class="absolute flex justify-center right-0 w-1/5">
+        <div class="absolute sm:w-1/5 w-2/5 right-0 h-28 text-lg flex justify-center items-center md:mb-0">
           <button
             class="font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
             onClick={() => loginWithRedirect()}

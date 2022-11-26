@@ -1,4 +1,11 @@
+import { useEffect } from "react";
+import ReactGA from "react-ga";
+
 const LandingPage = () => {
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  }, []);
+
   return (
     <div class="w-4/5 mx-auto h-full flex flex-col justify-center items-center">
       <h1 class="md:text-5xl text-4xl -mt-36 text-center">Welcome to BetNHLFree</h1>

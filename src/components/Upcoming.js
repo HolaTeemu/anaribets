@@ -76,16 +76,14 @@ const Upcoming = (props) => {
         </div>
         {upcomingGames.length > 0 &&
           upcomingGames.map((game) => {
-            if (game.status === "PREVIEW") {
-              const gameId = `${game.awayAbbr}${game.homeAbbr}${
-                game.startTime.split("T")[0]
-              }`;
-              return (
-                <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
-              );
-            }
+            const gameId = `${game.awayAbbr}${game.homeAbbr}${
+              game.startTime.split("T")[0]
+            }`;
+            return (
+              <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
+            );
           })}
-        {bets.length === upcomingGames.length && upcomingGames.length !== 0 ? (
+        {bets.length >= upcomingGames.length && upcomingGames.length !== 0 ? (
           <h3 class="text-3xl text-center my-20 ">Bets done!</h3>
         ) : upcomingGames.length === 0 ? (
           <h3 class="text-3xl text-center my-20">

@@ -45,7 +45,7 @@ const GameCard = ({ game, gameId }) => {
           }`}</p>
         </div>
       </div>
-      <h3 class="text-center">{game.currentPeriodTimeLeft} remaining</h3>
+      <h3 class="text-center">{game.currentPeriodTimeLeft}{game.currentPeriodTimeLeft !== "END" && " remaining"}</h3>
     </div>
   );
 };
