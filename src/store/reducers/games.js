@@ -1,9 +1,15 @@
-import { SET_ONGOING_GAMES, SET_RESULTS, SET_UPCOMING_GAMES } from "../actions/games";
+import {
+  SET_LAST_NIGHTS_BETS,
+  SET_ONGOING_GAMES,
+  SET_RESULTS,
+  SET_UPCOMING_GAMES,
+} from "../actions/games";
 
 const initialState = {
   upcomingGames: [],
   ongoingGames: [],
   results: [],
+  lastNightsBets: [],
 };
 
 const gamesReducer = (state = initialState, action) => {
@@ -22,6 +28,11 @@ const gamesReducer = (state = initialState, action) => {
       return {
         ...state,
         ongoingGames: action.ongoingGames,
+      };
+    case SET_LAST_NIGHTS_BETS:
+      return {
+        ...state,
+        lastNightsBets: action.lastNightsBets,
       };
     default:
       return state;

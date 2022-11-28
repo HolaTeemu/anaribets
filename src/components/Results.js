@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import { useDispatch, useSelector } from "react-redux";
-import { setResults } from "../store/actions/games";
+import { setLastNightsBets, setResults } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
@@ -10,6 +10,8 @@ import ResultsGameCard from "./ResultsGameCard";
 const Results = () => {
   const dispatch = useDispatch();
   const results = useSelector((state) => state.games.results);
+  const lastNightsBets = useSelector((state) => state.games.lastNightsBets);
+  const userId = useSelector((state) => state.users.userId);
 
   useEffect(() => {
     if (results.length === 0) {
@@ -23,6 +25,16 @@ const Results = () => {
         );
     }
   }, [dispatch, results, results.length]);
+
+  useEffect(() => {
+    if (results.length > 0 && lastNightsBets.length !== results.length) {
+      console.log("mo");
+      const resultsGameIds = results.map((result) => result.gameId);
+      gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
+        dispatch(setLastNightsBets(result.data));
+      });
+    }
+  }, [dispatch, lastNightsBets.length, results, userId]);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
@@ -42,10 +54,13 @@ const Results = () => {
         </p>
       </div>
       {results.map((game) => {
+        const betObject = lastNightsBets.find((el) => el.game === game.gameId);
         const gameId = `${game.awayAbbr}${game.homeAbbr}${
           game.startTime.split("T")[0]
         }`;
-        return <ResultsGameCard game={game} key={gameId} />;
+        return (
+          <ResultsGameCard game={game} key={gameId} bet={betObject?.bet} />
+        );
       })}
       {results.length === 0 && (
         <h3 class="text-3xl text-center my-20">No results to show</h3>

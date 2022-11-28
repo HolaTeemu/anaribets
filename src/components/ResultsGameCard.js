@@ -1,8 +1,6 @@
 import "../styles/RadioButton.scss";
 
-const ResultsGameCard = ({ game }) => {
-  // Create starting time for upcoming game
-
+const ResultsGameCard = ({ game, bet }) => {
   // Away and home abbreviation
   const awayAbbr = game.awayAbbr;
   const homeAbbr = game.homeAbbr;
@@ -46,9 +44,24 @@ const ResultsGameCard = ({ game }) => {
           }`}</p>
         </div>
       </div>
+
       <div>
-        {game.overtime && <p class="lg:text-xl text-base text-center -mt-3">OT</p>}
-        {game.shootout && <p class="lg:text-xl text-base text-center -mt-3">SO</p>}
+        <p class="text-center inline-block w-2/5 text-sm">
+          {bet && homeAbbr === bet && "Your bet"}
+        </p>
+        <div class="text-center inline-block w-1/5">
+          {game.overtime && (
+            <p class="inline-block lg:text-xl text-base -mt-3">OT</p>
+          )}
+          {game.shootout && (
+            <p class="inline-block lg:text-xl text-base text-center -mt-3">
+              SO
+            </p>
+          )}
+        </div>
+        <p class="inline-block text-center w-2/5 text-sm">
+          {bet && awayAbbr === bet && "Your bet"}
+        </p>
       </div>
     </div>
   );

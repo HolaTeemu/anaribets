@@ -26,6 +26,7 @@ const usersReducer = (state = initialState, action) => {
       state.betsMade.find((bet) => {
         return bet.game === action.gameId;
       });
+      break;
     case SET_USERS_GROUPS:
       return {
         ...state,
