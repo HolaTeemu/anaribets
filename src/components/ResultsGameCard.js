@@ -45,7 +45,7 @@ const ResultsGameCard = ({ game, bet }) => {
         </div>
       </div>
 
-      <div>
+      <div class="mx-auto md:w-full sm:w-4/5 w-full">
         <p class="text-center inline-block w-2/5 text-sm">
           {bet && homeAbbr === bet && "Your bet"}
         </p>
