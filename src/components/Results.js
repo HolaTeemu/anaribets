@@ -28,7 +28,6 @@ const Results = () => {
 
   useEffect(() => {
     if (results.length > 0 && lastNightsBets.length !== results.length) {
-      console.log("mo");
       const resultsGameIds = results.map((result) => result.gameId);
       gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
         dispatch(setLastNightsBets(result.data));
@@ -65,12 +64,6 @@ const Results = () => {
       {results.length === 0 && (
         <h3 class="text-3xl text-center my-20">No results to show</h3>
       )}
-      {/* {results.length > 0 && (
-        <p class="text-md text-center mt-20 w-4/5 mx-auto">
-          The colors indicate which team won. <br />
-          Indicators about the right and wrong bets will be added later
-        </p>
-      )} */}
     </div>
   );
 };

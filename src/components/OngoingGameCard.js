@@ -1,6 +1,6 @@
 import "../styles/RadioButton.scss";
 
-const GameCard = ({ game, gameId }) => {
+const OngoingGameCard = ({ game, bet }) => {
   // Away and home abbreviation
   const awayAbbr = game.awayAbbr;
   const homeAbbr = game.homeAbbr;
@@ -45,9 +45,22 @@ const GameCard = ({ game, gameId }) => {
           }`}</p>
         </div>
       </div>
-      <h3 class="text-center">{game.currentPeriodTimeLeft}{game.currentPeriodTimeLeft !== "END" && " remaining"}</h3>
+      <div class="mx-auto md:w-full sm:w-4/5 w-full">
+        <p class="text-center inline-block w-2/5 text-sm">
+          {bet && homeAbbr === bet && "Your bet"}
+        </p>
+        <div class="text-center inline-block w-1/5">
+          <h3 class="text-center">
+            {game.currentPeriodTimeLeft}
+            {game.currentPeriodTimeLeft !== "END" && " remaining"}
+          </h3>
+        </div>
+        <p class="inline-block text-center w-2/5 text-sm">
+          {bet && awayAbbr === bet && "Your bet"}
+        </p>
+      </div>
     </div>
   );
 };
 
-export default GameCard;
+export default OngoingGameCard;

@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 import { useDispatch, useSelector } from "react-redux";
-import { setOngoingGames } from "../store/actions/games";
+import { setLastNightsBets, setOngoingGames } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
@@ -10,6 +10,9 @@ import OngoingGameCard from "./OngoingGameCard";
 const Ongoing = () => {
   const dispatch = useDispatch();
   const ongoingGames = useSelector((state) => state.games.ongoingGames);
+  const lastNightsBets = useSelector((state) => state.games.lastNightsBets);
+  const userId = useSelector((state) => state.users.userId);
+
   const startDate = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
@@ -19,6 +22,15 @@ const Ongoing = () => {
       });
     }
   }, [dispatch, startDate, ongoingGames.length]);
+
+  useEffect(() => {
+    if (ongoingGames.length > 0 && lastNightsBets.length !== ongoingGames.length) {
+      const resultsGameIds = ongoingGames.map((result) => result.gameId);
+      gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
+        dispatch(setLastNightsBets(result.data));
+      });
+    }
+  }, [dispatch, lastNightsBets.length, ongoingGames, userId]);
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
@@ -38,10 +50,11 @@ const Ongoing = () => {
         </p>
       </div>
       {ongoingGames.map((game) => {
+        const betObject = lastNightsBets.find((el) => el.game === game.gameId);
         const gameId = `${game.awayAbbr}${game.homeAbbr}${
           game.startTime.split("T")[0]
         }`;
-        return <OngoingGameCard game={game} gameId={gameId} key={gameId} />;
+        return <OngoingGameCard game={game} gameId={gameId} key={gameId} bet={betObject?.bet} />;
       })}
       {ongoingGames.length === 0 && (
         <h3 class="text-3xl text-center my-20">
