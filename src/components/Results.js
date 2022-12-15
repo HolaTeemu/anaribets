@@ -4,7 +4,6 @@ import { setLastNightsBets, setResults } from "../store/actions/games";
 import gamesService from "../services/gamesService";
 import { useEffect } from "react";
 import ReactGA from "react-ga";
-
 import ResultsGameCard from "./ResultsGameCard";
 
 const Results = () => {
@@ -58,7 +57,7 @@ const Results = () => {
           game.startTime.split("T")[0]
         }`;
         return (
-          <ResultsGameCard game={game} key={gameId} bet={betObject?.bet} />
+          <ResultsGameCard game={game} key={gameId} bet={betObject?.bet} highlightReel={betObject?.highlightReel} />
         );
       })}
       {results.length === 0 && (

@@ -91,7 +91,7 @@ const Upcoming = (props) => {
           </h3>
         ) : (
           <button
-            class="mt-14 mx-auto w-auto font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
+            class="my-14 mx-auto w-auto font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
             type="submit"
           >
             Save bets

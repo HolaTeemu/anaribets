@@ -1,6 +1,6 @@
 import "../styles/RadioButton.scss";
 
-const ResultsGameCard = ({ game, bet }) => {
+const ResultsGameCard = ({ game, bet, highlightReel }) => {
   // Away and home abbreviation
   const awayAbbr = game.awayAbbr;
   const homeAbbr = game.homeAbbr;
@@ -11,6 +11,13 @@ const ResultsGameCard = ({ game, bet }) => {
 
   return (
     <div class="flex flex-col w-full my-6">
+      {highlightReel && (
+        <div class="mx-auto md:w-full sm:w-4/5 w-full">
+          <a href={highlightReel} class="flex justify-center">
+            Highlights
+          </a>
+        </div>
+      )}
       <div class="flex items-center w-full">
         <div class="flex text-lg xl:text-4xl lg:text-4xl md:text-3xl sm:text-2xl font-light md:w-1/4 w-1/3 sm:text-right text-center">
           <p class="w-full">{`${homeCity} ${
