@@ -140,6 +140,7 @@ const Leaderboard = (props) => {
                     <th class="font-light">Position</th>
                     <th class="font-light">Nickname</th>
                     <th class="font-light">Points</th>
+                    {/* <th class="font-light">Stats</th> */}
                   </tr>
                 </thead>
                 {sortedLeaderboard.map((player, i) => (
@@ -147,7 +148,17 @@ const Leaderboard = (props) => {
                     <tr>
                       <td>{i + 1}</td>
                       <td>{player.username}</td>
-                      <td>{player.points}</td>
+                      <td>
+                        {player.points} (
+                        {player.totalBets ? player.totalBets : 0})*
+                        
+                      </td>
+                      {/* <td>
+                        {parseFloat(
+                          (+player.points / player.totalBets) * 100
+                        ).toFixed(2)}
+                        %
+                      </td> */}
                     </tr>
                   </tbody>
                 ))}
@@ -156,8 +167,11 @@ const Leaderboard = (props) => {
           );
         })
       )}
-      <div class="flex mx-auto text-center flex-col justify-center items-left xl:w-1/4 lg:w-2/5 md:w-1/2 sm:w-4/5 w-11/12 pb-10">
-        <h2 class="sm:text-3xl text-2xl text-left pt-12 mb-6">Join/Create a group</h2>
+      <p class="text-center">* Total amount of bets made</p>
+      <div class="mt-10 flex mx-auto text-center flex-col justify-center items-left xl:w-1/4 lg:w-2/5 md:w-1/2 sm:w-4/5 w-11/12 pb-10">
+        <h2 class="sm:text-3xl text-2xl text-left pt-12 mb-6">
+          Join/Create a group
+        </h2>
         <label class="text-xl text-left">Group name</label>
         <input
           type="text"
