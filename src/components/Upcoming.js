@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setUpcomingGames } from "../store/actions/games";
 import gamesService from "../services/gamesService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 
 import UpcomingGameCard from "./UpcomingGameCard";
@@ -15,6 +15,7 @@ const Upcoming = (props) => {
   const userId = useSelector((state) => state.users.userId);
   const bets = useSelector((state) => state.users.betsMade);
   const startDate = new Date().toISOString().split("T")[0];
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFormSubmit = (event) => {
     let betsMade = [];
@@ -39,8 +40,10 @@ const Upcoming = (props) => {
 
   useEffect(() => {
     if (upcomingGames.length === 0) {
+      setIsLoading(true);
       gamesService.getUpcomingGames(startDate).then((res) => {
         dispatch(setUpcomingGames(res.data));
+        setIsLoading(false);
       });
     }
     if (bets.length === 0 && userId) {
@@ -52,6 +55,18 @@ const Upcoming = (props) => {
         .catch((error) => console.log(error.message));
     }
   }, [dispatch, startDate, upcomingGames.length, bets.length, userId]);
+  
+  const checkBetAmount = () => {
+    let betNumber = 0;
+    bets.forEach((bet) => {
+      if (
+        upcomingGames.find((upcomingGame) => upcomingGame.gameId === bet.game)
+      ) {
+        betNumber++;
+      }
+    });
+    return betNumber;
+  }
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
@@ -83,12 +98,14 @@ const Upcoming = (props) => {
               <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
             );
           })}
-        {bets.length >= upcomingGames.length && upcomingGames.length !== 0 ? (
+        {checkBetAmount() === upcomingGames.length && upcomingGames.length !== 0 ? (
           <h3 class="text-3xl text-center my-20 ">Bets done!</h3>
-        ) : upcomingGames.length === 0 ? (
+        ) : upcomingGames.length === 0 && !isLoading ? (
           <h3 class="text-3xl text-center my-20">
             No games on the upcoming night
           </h3>
+        ) : isLoading ? (
+          <h3 class="text-3xl text-center my-20">Loading games...</h3>
         ) : (
           <button
             class="my-14 mx-auto w-auto font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"
