@@ -33,7 +33,6 @@ const Upcoming = (props) => {
       .saveBets(betsMade, userId)
       .then((res) => {
         alert("Bets saved");
-        console.log("Bets saved");
       })
       .catch((error) => console.log(error.message));
   };
@@ -55,7 +54,7 @@ const Upcoming = (props) => {
         .catch((error) => console.log(error.message));
     }
   }, [dispatch, startDate, upcomingGames.length, bets.length, userId]);
-  
+
   const checkBetAmount = () => {
     let betNumber = 0;
     bets.forEach((bet) => {
@@ -66,7 +65,7 @@ const Upcoming = (props) => {
       }
     });
     return betNumber;
-  }
+  };
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
@@ -98,14 +97,15 @@ const Upcoming = (props) => {
               <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
             );
           })}
-        {checkBetAmount() === upcomingGames.length && upcomingGames.length !== 0 ? (
+        {checkBetAmount() === upcomingGames.length &&
+        upcomingGames.length !== 0 ? (
           <h3 class="text-3xl text-center my-20 ">Bets done!</h3>
+        ) : isLoading ? (
+          <h3 class="text-3xl text-center my-20">Loading games...</h3>
         ) : upcomingGames.length === 0 && !isLoading ? (
           <h3 class="text-3xl text-center my-20">
             No games on the upcoming night
           </h3>
-        ) : isLoading ? (
-          <h3 class="text-3xl text-center my-20">Loading games...</h3>
         ) : (
           <button
             class="my-14 mx-auto w-auto font-semibold text-teal-300 border-2 border-teal-300 rounded-md py-1.5 px-5 hover:bg-teal-700"

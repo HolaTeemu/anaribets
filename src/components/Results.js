@@ -2,22 +2,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setLastNightsBets, setResults } from "../store/actions/games";
 import gamesService from "../services/gamesService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 import ResultsGameCard from "./ResultsGameCard";
 
 const Results = () => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const results = useSelector((state) => state.games.results);
   const lastNightsBets = useSelector((state) => state.games.lastNightsBets);
   const userId = useSelector((state) => state.users.userId);
 
   useEffect(() => {
     if (results.length === 0) {
+      setIsLoading(true);
       gamesService
         .getResults()
         .then((res) => {
           dispatch(setResults(res.data));
+          setIsLoading(false);
         })
         .catch((error) =>
           console.log(`Error fetching the results - ${error.message}`)
@@ -57,11 +60,21 @@ const Results = () => {
           game.startTime.split("T")[0]
         }`;
         return (
-          <ResultsGameCard game={game} key={gameId} bet={betObject?.bet} highlightReel={betObject?.highlightReel} />
+          <ResultsGameCard
+            game={game}
+            key={gameId}
+            bet={betObject?.bet}
+            highlightReel={betObject?.highlightReel}
+          />
         );
       })}
-      {results.length === 0 && (
-        <h3 class="text-3xl text-center my-20">No results to show</h3>
+      {isLoading ? (
+        <h3 class="text-3xl text-center my-20">Loading results...</h3>
+      ) : (
+        results.length === 0 &&
+        !isLoading && (
+          <h3 class="text-3xl text-center my-20">No results to show</h3>
+        )
       )}
     </div>
   );

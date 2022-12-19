@@ -1,30 +1,34 @@
 /* eslint-disable array-callback-return */
 import { useDispatch, useSelector } from "react-redux";
-import { setLastNightsBets, setOngoingGames } from "../store/actions/games";
+import { setLastNightsBets } from "../store/actions/games";
 import gamesService from "../services/gamesService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 
 import OngoingGameCard from "./OngoingGameCard";
 
 const Ongoing = () => {
   const dispatch = useDispatch();
-  const ongoingGames = useSelector((state) => state.games.ongoingGames);
+  const [ongoingGames, setOngoingGames] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const lastNightsBets = useSelector((state) => state.games.lastNightsBets);
   const userId = useSelector((state) => state.users.userId);
 
   const startDate = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
-    if (ongoingGames.length === 0) {
-      gamesService.getOngoingGames(startDate).then((res) => {
-        dispatch(setOngoingGames(res.data));
-      });
-    }
-  }, [dispatch, startDate, ongoingGames.length]);
+    setIsLoading(true);
+    gamesService.getOngoingGames(startDate).then((res) => {
+      setOngoingGames(res.data);
+      setIsLoading(false);
+    });
+  }, [dispatch, startDate]);
 
   useEffect(() => {
-    if (ongoingGames.length > 0 && lastNightsBets.length !== ongoingGames.length) {
+    if (
+      ongoingGames.length > 0 &&
+      lastNightsBets.length !== ongoingGames.length
+    ) {
       const resultsGameIds = ongoingGames.map((result) => result.gameId);
       gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
         dispatch(setLastNightsBets(result.data));
@@ -54,12 +58,24 @@ const Ongoing = () => {
         const gameId = `${game.awayAbbr}${game.homeAbbr}${
           game.startTime.split("T")[0]
         }`;
-        return <OngoingGameCard game={game} gameId={gameId} key={gameId} bet={betObject?.bet} />;
+        return (
+          <OngoingGameCard
+            game={game}
+            gameId={gameId}
+            key={gameId}
+            bet={betObject?.bet}
+          />
+        );
       })}
-      {ongoingGames.length === 0 && (
-        <h3 class="text-3xl text-center my-20">
-          Waiting for games to start...
-        </h3>
+      {isLoading ? (
+        <h3 class="text-3xl text-center my-20">Loading games...</h3>
+      ) : (
+        ongoingGames.length === 0 &&
+        !isLoading && (
+          <h3 class="text-3xl text-center my-20">
+            Waiting for games to start...
+          </h3>
+        )
       )}
     </div>
   );
