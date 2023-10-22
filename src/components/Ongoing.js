@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setLastNightsBets } from "../store/actions/games";
 import gamesService from "../services/gamesService";
+import usersService from "../services/usersService";
 import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 
@@ -30,7 +31,7 @@ const Ongoing = () => {
       lastNightsBets.length !== ongoingGames.length
     ) {
       const resultsGameIds = ongoingGames.map((result) => result.gameId);
-      gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
+      usersService.getLastNightsBets(userId, resultsGameIds).then((result) => {
         dispatch(setLastNightsBets(result.data));
       });
     }

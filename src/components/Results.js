@@ -2,6 +2,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setLastNightsBets, setResults } from "../store/actions/games";
 import gamesService from "../services/gamesService";
+import usersService from "../services/usersService";
 import { useEffect, useState } from "react";
 import ReactGA from "react-ga";
 import ResultsGameCard from "./ResultsGameCard";
@@ -26,13 +27,14 @@ const Results = () => {
           console.log(`Error fetching the results - ${error.message}`)
         );
     }
-  }, [dispatch, results, results.length]);
+  }, [dispatch, results.length]);
 
   useEffect(() => {
     if (results.length > 0 && lastNightsBets.length !== results.length) {
       const resultsGameIds = results.map((result) => result.gameId);
-      gamesService.getLastNightsBets(userId, resultsGameIds).then((result) => {
+      usersService.getLastNightsBets(userId, resultsGameIds).then((result) => {
         dispatch(setLastNightsBets(result.data));
+        setIsLoading(false);
       });
     }
   }, [dispatch, lastNightsBets.length, results, userId]);
