@@ -16,6 +16,7 @@ const Upcoming = (props) => {
   const bets = useSelector((state) => state.users.betsMade);
   const startDate = new Date().toISOString().split("T")[0];
   const [isLoading, setIsLoading] = useState(false);
+  const [betAmounts, setBetAmounts] = useState([]);
 
   const handleFormSubmit = (event) => {
     let betsMade = [];
@@ -35,6 +36,11 @@ const Upcoming = (props) => {
         alert("Bets saved");
       })
       .catch((error) => console.log(error.message));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    usersService.getBetAmounts(userId).then((res) => {
+      setBetAmounts(res.data);
+    });
   };
 
   useEffect(() => {
@@ -55,7 +61,16 @@ const Upcoming = (props) => {
     }
   }, [dispatch, startDate, upcomingGames.length, bets.length, userId]);
 
-  const checkBetAmount = () => {
+  useEffect(() => {
+    if (bets.length !== 0) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      usersService.getBetAmounts(userId).then((res) => {
+        setBetAmounts(res.data);
+      });
+    }
+  }, [bets.length, userId]);
+
+  const calculateBetAmount = () => {
     let betNumber = 0;
     bets.forEach((bet) => {
       if (
@@ -93,11 +108,24 @@ const Upcoming = (props) => {
             const gameId = `${game.awayAbbr}${game.homeAbbr}${
               game.startTime.split("T")[0]
             }`;
+            const betAmountsObj = betAmounts.find((el) => el.gameId === gameId);
+            let homeBets;
+            let awayBets;
+            if (betAmountsObj) {
+              homeBets = betAmountsObj[game.homeAbbr];
+              awayBets = betAmountsObj[game.awayAbbr];
+            }
             return (
-              <UpcomingGameCard game={game} gameId={gameId} key={gameId} />
+              <UpcomingGameCard
+                game={game}
+                gameId={gameId}
+                key={gameId}
+                homeBetAmount={homeBets}
+                awayBetAmount={awayBets}
+              />
             );
           })}
-        {checkBetAmount() === upcomingGames.length &&
+        {calculateBetAmount() === upcomingGames.length &&
         upcomingGames.length !== 0 ? (
           <h3 class="text-3xl text-center my-20 ">Bets done!</h3>
         ) : isLoading ? (

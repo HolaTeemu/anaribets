@@ -150,8 +150,12 @@ const Leaderboard = (props) => {
                       <td>{player.username}</td>
                       <td>
                         {player.points} (
-                        {player.totalBets ? player.totalBets : 0})*
-                        
+                        {player.totalBets
+                          ? parseFloat(
+                              (+player.points / player.totalBets) * 100
+                            ).toFixed(2)
+                          : 0}
+                        %)*
                       </td>
                       {/* <td>
                         {parseFloat(
@@ -167,7 +171,7 @@ const Leaderboard = (props) => {
           );
         })
       )}
-      <p class="text-center">* Total amount of bets made</p>
+      <p class="text-center">* Correct bets percentage (from total bets made)</p>
       <div class="mt-10 flex mx-auto text-center flex-col justify-center items-left xl:w-1/4 lg:w-2/5 md:w-1/2 sm:w-4/5 w-11/12 pb-10">
         <h2 class="sm:text-3xl text-2xl text-left pt-12 mb-6">
           Join/Create a group
