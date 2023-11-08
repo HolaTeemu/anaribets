@@ -24,7 +24,7 @@ const Upcoming = (props) => {
     for (let i = 0; i < upcomingGames.length * 2; i++) {
       if (event.target[i].checked && !event.target[i].disabled) {
         betsMade = betsMade.concat({
-          game: event.target[i].name,
+          game: +event.target[i].name,
           bet: event.target[i].value,
         });
       }
@@ -105,10 +105,7 @@ const Upcoming = (props) => {
         </div>
         {upcomingGames.length > 0 &&
           upcomingGames.map((game) => {
-            const gameId = `${game.awayAbbr}${game.homeAbbr}${
-              game.startTime.split("T")[0]
-            }`;
-            const betAmountsObj = betAmounts.find((el) => el.gameId === gameId);
+            const betAmountsObj = betAmounts.find((el) => el.gameId === game.gameId);
             let homeBets;
             let awayBets;
             if (betAmountsObj) {
@@ -118,8 +115,8 @@ const Upcoming = (props) => {
             return (
               <UpcomingGameCard
                 game={game}
-                gameId={gameId}
-                key={gameId}
+                gameId={game.gameId}
+                key={game.gameId}
                 homeBetAmount={homeBets}
                 awayBetAmount={awayBets}
               />

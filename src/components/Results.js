@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useDispatch, useSelector } from "react-redux";
 import { setLastNightsBets, setResults } from "../store/actions/games";
@@ -13,6 +14,7 @@ const Results = () => {
   const results = useSelector((state) => state.games.results);
   const lastNightsBets = useSelector((state) => state.games.lastNightsBets);
   const userId = useSelector((state) => state.users.userId);
+  let resultsGameIds = results.map((result) => result.gameId);
 
   useEffect(() => {
     if (results.length === 0) {
@@ -31,7 +33,7 @@ const Results = () => {
 
   useEffect(() => {
     if (results.length > 0 && lastNightsBets.length !== results.length) {
-      const resultsGameIds = results.map((result) => result.gameId);
+      resultsGameIds = results.map((result) => result.gameId);
       usersService.getLastNightsBets(userId, resultsGameIds).then((result) => {
         dispatch(setLastNightsBets(result.data));
         setIsLoading(false);
