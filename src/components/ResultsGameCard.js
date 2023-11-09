@@ -18,6 +18,9 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
   const awayCity = game.awayCity;
   const homeCity = game.homeCity;
 
+  console.log(bet && homeAbbr === bet && !showHomeList);
+  console.log(bet && awayAbbr === bet && !showAwayList);
+
   /*
   // Away and home betlists
   const groupLists = [];
@@ -131,6 +134,7 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
       <div class="mx-auto md:w-full sm:w-4/5 w-full">
         <p class="text-center inline-block w-2/5 text-sm">
           {bet && homeAbbr === bet && !showHomeList && "Your bet"}
+          {/*
           <div>
             <div
               class={`${
@@ -138,7 +142,7 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
               } mx-auto w-fit px-8 py-2 relative bg-gray-600 rounded-md`}
             >
               <p class="md:text-base text-sm font-semibold underline">Bets:</p>
-              {/* 
+              
               {groupLists &&
                 groupLists.map((group) => (
                   <>
@@ -150,9 +154,9 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
                     <GroupBetList bets={group.homeBets} />
                   </>
                 ))}
-                 */}
+                 
             </div>
-          </div>
+          </div> */}
         </p>
         <div class="text-center inline-block w-1/5">
           {game.overtime && (
@@ -164,9 +168,9 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
             </p>
           )}
         </div>
-        <div>
-          <p class="inline-block text-center w-2/5 text-sm">
-            {bet && awayAbbr === bet && !showAwayList && "Your bet"}
+        <p class="inline-block text-center w-2/5 text-sm">
+          {bet && awayAbbr === bet && !showAwayList && "Your bet"}
+          {/* 
             <div>
               <div
                 class={`${
@@ -176,7 +180,7 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
                 <p class="md:text-base pb-1 text-sm font-semibold underline">
                   Bets:
                 </p>
-                {/* 
+                
                 {groupLists &&
                   groupLists.map((group) => (
                     <>
@@ -188,11 +192,11 @@ const ResultsGameCard = ({ game, bet, highlightReel }) => {
                       <GroupBetList bets={group.awayBets} />
                     </>
                   ))}
-                   */}
+                
               </div>
             </div>
-          </p>
-        </div>
+            */}
+        </p>
       </div>
     </div>
   );
