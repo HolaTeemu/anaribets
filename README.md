@@ -4,10 +4,10 @@
 # Still under development
 
 MERN stack Full stack project that uses REST API to get upcoming games, results etc.
-Link to API https://github.com/peruukki/nhl-score-api
+Link to API https://gitlab.com/dword4/nhlapi
 Link to backend repository https://github.com/HolaTeemu/anaribets-backend
 
-### TODO list
+### TODO list (A bit outdated since this is only a one person project)
 - [x] Upcoming games data fetching + displaying
 - [x] Results data fetching + displaying
 - [x] Ongoing games data fetching + displaying
@@ -19,13 +19,13 @@ Link to backend repository https://github.com/HolaTeemu/anaribets-backend
 - [x] Group joining
 - [x] Leaderboards
 - [x] First version live
-- [ ] Some styles with Tailwind CSS
+- [x] Some styles with Tailwind CSS
 - [ ] Refactor code
 - [ ] Group admins
-- [ ] Highlight videos to results page
+- [x] Highlight videos to results page
 - [ ] Top scorers list to results page
 - [ ] Small things (for example showing what bets did the user make and what went right with the results)
-- [ ] Maintenance
+- [x] Maintenance
 
 
 ### Other things I have done along the way
